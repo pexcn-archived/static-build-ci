@@ -1,0 +1,29 @@
+dist: xenial
+language: c
+
+branches:
+  only:
+    - master
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    packages:
+      - build-essential
+      - gcc
+      - g++
+      - make
+      - automake
+      - autoconf
+      - libtool
+      - curl
+
+env:
+  global:
+    - TZ: "Asia/Shanghai"
+
+script:
+  - bash build.sh
+  - bash release.sh
