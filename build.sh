@@ -5,6 +5,7 @@ PCRE_VERSION=8.43
 CARES_VERSION=1.15.0
 MBEDTLS_VERSION=2.16.0
 LIBSODIUM_VERSION=1.0.17
+SHADOWSOCKS_VERSION=3.2.5
 
 CUR_DIR=$(pwd)
 PREFIX_DIR="$CUR_DIR/dist"
@@ -55,7 +56,7 @@ build_mbedtls() {
   cd $CUR_DIR/build
   curl -kLs https://tls.mbed.org/download/mbedtls-$MBEDTLS_VERSION-gpl.tgz | tar zxf -
   cd mbedtls-$MBEDTLS_VERSION
-  make -j`nproc` programs CFLAGS="-O3 -fPIC" LDFLAGS=-static \
+  make -j`nproc` programs CFLAGS="-O3" LDFLAGS=-static \
     CC="$BUILD_HOST-linux-gnu-gcc" AR="$BUILD_HOST-linux-gnu-ar" LD="$BUILD_HOST-linux-gnu-ld"
   make install DESTDIR="$PREFIX_DIR/mbedtls"
   cd $CUR_DIR
@@ -73,9 +74,28 @@ build_libsodium() {
   cd $CUR_DIR
 }
 
+build_shadowsocks_libev() {
+  #[ -d $PREFIX_DIR/shadowsocks-libev ] && return
+
+  cd $CUR_DIR/build
+  curl -kLs https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SHADOWSOCKS_VERSION/shadowsocks-libev-$SHADOWSOCKS_VERSION.tar.gz | tar zxf -
+  cd shadowsocks-libev-$SHADOWSOCKS_VERSION
+  ./configure --prefix="$PREFIX_DIR/shadowsocks-libev" --host="$BUILD_HOST" \
+    --with-ev="$PREFIX_DIR/libev" --with-pcre="$PREFIX_DIR/pcre" --with-cares="$PREFIX_DIR/c-ares" --with-sodium="$PREFIX_DIR/libsodium" --with-mbedtls="$PREFIX_DIR/mbedtls" \
+    --disable-documentation --disable-assert \
+    LIBS="-lpthread -lm" \
+    CFLAGS="-I$PREFIX_DIR/libev/include -I$PREFIX_DIR/pcre/include -I$PREFIX_DIR/c-ares/include -I$PREFIX_DIR/mbedtls/include -I$PREFIX_DIR/libsodium/include" \
+    LDFLAGS="-Wl,-static -static -static-libgcc -I$PREFIX_DIR/libev/lib -I$PREFIX_DIR/pcre/lib -I$PREFIX_DIR/c-ares/lib -I$PREFIX_DIR/mbedtls/lib -I$PREFIX_DIR/libsodium/lib"
+  cd $CUR_DIR
+}
+
 prepare
 build_libev
 build_pcre
 build_cares
 build_mbedtls
 build_libsodium
+build_shadowsocks_libev
+
+# --disable-shared --enable-static for shadowsocks-libev ???
+# make install-strip
