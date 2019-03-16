@@ -8,88 +8,120 @@ C_ARES_VER=1.15.0
 C_ARES_URL=https://c-ares.haxx.se/download/c-ares-$C_ARES_VER.tar.gz
 MBEDTLS_VER=2.16.0
 MBEDTLS_URL=https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
-LIBSODIUM_VER=1.0.17
-LIBSODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$LIBSODIUM_VER/libsodium-$LIBSODIUM_VER.tar.gz
-SHADOWSOCKS_LIBEV_VER=3.2.5
-SHADOWSOCKS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SHADOWSOCKS_LIBEV_VER/shadowsocks-libev-$SHADOWSOCKS_LIBEV_VER.tar.gz
+SODIUM_VER=1.0.17
+SODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$SODIUM_VER/libsodium-$SODIUM_VER.tar.gz
+SS_LIBEV_VER=3.2.5
+SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
 CUR_DIR=$(pwd)
-PREFIX="$CUR_DIR/dist"
-HOST="$1"
+DIST_PREFIX="$CUR_DIR/dist"
+CROSS_HOST="$1"
 
 prepare() {
   rm -rf $CUR_DIR/build && mkdir $CUR_DIR/build
 }
 
 build_libev() {
-  [ -d $PREFIX/libev ] && return
+  [ -d $DIST_PREFIX/libev ] && return
 
   cd $CUR_DIR/build
   curl -kLs $LIBEV_URL | tar zxf -
   cd libev-$LIBEV_VER
-  ./configure --prefix="$PREFIX/libev" --host="$HOST" --disable-shared --enable-static
+  ./configure \
+    --prefix="$DIST_PREFIX/libev" \
+    --host="$CROSS_HOST" \
+    --disable-shared \
+    --enable-static
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
 
 build_pcre() {
-  [ -d $PREFIX/pcre ] && return
+  [ -d $DIST_PREFIX/pcre ] && return
 
   cd $CUR_DIR/build
   curl -kLs $PCRE_URL | tar zxf -
   cd pcre-$PCRE_VER
-  ./configure --prefix="$PREFIX/pcre" --host="$HOST" --disable-shared --enable-static \
-    --enable-jit --enable-utf8 --enable-unicode-properties
+  ./configure \
+    --prefix="$DIST_PREFIX/pcre" \
+    --host="$CROSS_HOST" \
+    --disable-shared \
+    --enable-static \
+    --enable-jit \
+    --enable-utf8 \
+    --enable-unicode-properties
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
 
 build_c_ares() {
-  [ -d $PREFIX/c-ares ] && return
+  [ -d $DIST_PREFIX/c-ares ] && return
 
   cd $CUR_DIR/build
   curl -kLs $C_ARES_URL | tar zxf -
   cd c-ares-$C_ARES_VER
-  ./configure --prefix="$PREFIX/c-ares" --host="$HOST" --disable-shared --enable-static \
-    --enable-optimize="-O3" --disable-debug
+  ./configure \
+    --prefix="$DIST_PREFIX/c-ares" \
+    --host="$CROSS_HOST" \
+    --disable-shared \
+    --enable-static \
+    --enable-optimize="-O3" \
+    --disable-debug
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
 
 build_mbedtls() {
-  [ -d $PREFIX/mbedtls ] && return
+  [ -d $DIST_PREFIX/mbedtls ] && return
 
   cd $CUR_DIR/build
   curl -kLs $MBEDTLS_URL | tar zxf -
   cd mbedtls-$MBEDTLS_VER
-  make -j`nproc` programs CC="$HOST-gcc" AR="$HOST-ar" LD="$HOST-ld" CFLAGS="-O3" LDFLAGS=-static
-  make install DESTDIR="$PREFIX/mbedtls"
+  make -j`nproc` programs \
+    CC="$CROSS_HOST-gcc" \
+    AR="$CROSS_HOST-ar" \
+    LD="$CROSS_HOST-ld" \
+    CFLAGS="-O3" \
+    LDFLAGS=-static
+  make install DESTDIR="$DIST_PREFIX/mbedtls"
   cd $CUR_DIR
 }
 
 build_libsodium() {
-  [ -d $PREFIX/libsodium ] && return
+  [ -d $DIST_PREFIX/libsodium ] && return
 
   cd $CUR_DIR/build
-  curl -kLs $LIBSODIUM_URL | tar zxf -
-  cd libsodium-$LIBSODIUM_VER
-  ./configure --prefix="$PREFIX/libsodium" --host="$HOST" --disable-shared --enable-static \
+  curl -kLs $SODIUM_URL | tar zxf -
+  cd libsodium-$SODIUM_VER
+  ./configure \
+    --prefix="$DIST_PREFIX/libsodium" \
+    --host="$CROSS_HOST" \
+    --disable-shared \
+    --enable-static \
     --enable-opt
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
 
 build_shadowsocks_libev() {
-  [ -d $PREFIX/shadowsocks-libev ] && return
+  [ -d $DIST_PREFIX/shadowsocks-libev ] && return
 
   cd $CUR_DIR/build
-  curl -kLs $SHADOWSOCKS_LIBEV_URL | tar zxf -
-  cd shadowsocks-libev-$SHADOWSOCKS_LIBEV_VER
-  ./configure --prefix="$PREFIX/shadowsocks-libev" --host="$HOST" --enable-static \
-    --disable-documentation --disable-assert \
-    --with-ev="$PREFIX/libev" --with-pcre="$PREFIX/pcre" --with-cares="$PREFIX/c-ares" --with-mbedtls="$PREFIX/mbedtls" --with-sodium="$PREFIX/libsodium" \
+  curl -kLs $SS_LIBEV_URL | tar zxf -
+  cd shadowsocks-libev-$SS_LIBEV_VER
+  ./configure \
+    --prefix="$DIST_PREFIX/shadowsocks-libev" \
+    --host="$CROSS_HOST" \
+    --enable-static \
+    --disable-documentation \
+    --disable-assert \
+    --with-ev="$DIST_PREFIX/libev" \
+    --with-pcre="$DIST_PREFIX/pcre" \
+    --with-cares="$DIST_PREFIX/c-ares" \
+    --with-mbedtls="$DIST_PREFIX/mbedtls" \
+    --with-sodium="$DIST_PREFIX/libsodium" \
     LIBS="-lpthread -lm" \
-    CFLAGS="-I$PREFIX/libev/include -I$PREFIX/pcre/include -I$PREFIX/c-ares/include -I$PREFIX/mbedtls/include -I$PREFIX/libsodium/include" \
+    CFLAGS="-I$DIST_PREFIX/libev/include -I$DIST_PREFIX/pcre/include -I$DIST_PREFIX/c-ares/include -I$DIST_PREFIX/mbedtls/include -I$DIST_PREFIX/libsodium/include" \
     LDFLAGS="-Wl,-static -static -static-libgcc"
   make -j`nproc` && make install-strip
   cd $CUR_DIR

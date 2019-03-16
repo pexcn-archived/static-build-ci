@@ -14,7 +14,7 @@ copy_shadowsocks_libev_binary() {
   find $DIST_DIR/shadowsocks-libev -name "ss-manager" -exec cp -- "{}" release \;
 
   cd $RELEASE_DIR
-  tar -zcvf shadowsocks-libev-$VERSION-linux-amd64.tar.gz * --remove-files
+  tar -zcvf shadowsocks-libev-linux-amd64-$VERSION.tar.gz * --remove-files
   cd $CUR_DIR
 }
 
