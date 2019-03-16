@@ -121,7 +121,6 @@ build_shadowsocks_libev() {
     --with-mbedtls="$DIST_PREFIX/mbedtls" \
     --with-sodium="$DIST_PREFIX/libsodium" \
     LIBS="-lpthread -lm" \
-    CFLAGS="-I$DIST_PREFIX/libev/include -I$DIST_PREFIX/pcre/include -I$DIST_PREFIX/c-ares/include -I$DIST_PREFIX/mbedtls/include -I$DIST_PREFIX/libsodium/include" \
     LDFLAGS="-Wl,-static -static -static-libgcc"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
