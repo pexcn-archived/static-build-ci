@@ -15,7 +15,7 @@ SHADOWSOCKS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/
 
 CUR_DIR=$(pwd)
 PREFIX="$CUR_DIR/dist"
-HOST="x86_64-linux-gnu"
+HOST="$1"
 
 prepare() {
   rm -rf $CUR_DIR/build && mkdir $CUR_DIR/build

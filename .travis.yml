@@ -25,5 +25,5 @@ env:
     - TZ: "Asia/Shanghai"
 
 script:
-  - bash build.sh
+  - bash build.sh x86_64-linux-gnu
   - bash release.sh
