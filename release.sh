@@ -5,37 +5,38 @@ DIST_DIR="$CUR_DIR/dist"
 RELEASE_DIR="$CUR_DIR/release"
 VERSION=$(date +%Y%m%d)
 
-copy_shadowsocks_libev_binary() {
-  mkdir $RELEASE_DIR
-  find $DIST_DIR/shadowsocks-libev -name "ss-server" -exec cp -- "{}" release \;
-  find $DIST_DIR/shadowsocks-libev -name "ss-local" -exec cp -- "{}" release \;
-  find $DIST_DIR/shadowsocks-libev -name "ss-redir" -exec cp -- "{}" release \;
-  find $DIST_DIR/shadowsocks-libev -name "ss-tunnel" -exec cp -- "{}" release \;
-  find $DIST_DIR/shadowsocks-libev -name "ss-manager" -exec cp -- "{}" release \;
-
-  cd $RELEASE_DIR
-  tar -zcvf shadowsocks-libev-linux-amd64-$VERSION.tar.gz * --remove-files
-  cd $CUR_DIR
+prepare() {
+  rm -rf $RELEASE_DIR && mkdir $RELEASE_DIR
 }
 
-upload_to_github_release() {
-  API_URL="https://api.github.com/repos/tcnksm/ghr/releases/latest"
-  TAG=$(curl -s $API_URL | grep "tag_name" | sed -E 's/.*"([^"]+)".*/\1/')
-  DOWNLOAD_URL=$(curl -s $API_URL | grep "browser_download_url" | grep "linux" | grep "amd64" | cut -d '"' -f 4)
+tarball_bin() {
+  for arch in $(ls $DIST_DIR)
+  do
+    local tmp_dir=`mktemp -d /tmp/shadowsocks-libev.XXXXXX`
+    find $DIST_DIR/$arch/shadowsocks-libev -name "ss-*" -print0 | xargs -0 cp -t $tmp_dir
+    tar -C $tmp_dir -zcvf $RELEASE_DIR/shadowsocks-libev-linux-$arch-$VERSION.tar.gz . --remove-files
+  done
+}
 
-  USER=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 1)
-  REPO=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 2)
+release() {
+  local api_url="https://api.github.com/repos/tcnksm/ghr/releases/latest"
+  local tag=$(curl -s $api_url | grep "tag_name" | sed -E 's/.*"([^"]+)".*/\1/')
+  local download_url=$(curl -s $api_url | grep "browser_download_url" | grep "linux" | grep "amd64" | cut -d '"' -f 4)
 
-  curl -kLs $DOWNLOAD_URL | tar zxf - ghr_${TAG}_linux_amd64/ghr --strip-components 1
+  local user=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 1)
+  local repo=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 2)
+
+  curl -kLs $download_url | tar zxf - ghr_${tag}_linux_amd64/ghr --strip-components 1
 
   ./ghr -t $GITHUB_TOKEN \
-    -u $USER \
-    -r $REPO \
+    -u $user \
+    -r $repo \
     -c $TRAVIS_COMMIT \
     -n $VERSION \
     -delete \
-    $VERSION release
+    $VERSION $RELEASE_DIR
 }
 
-copy_shadowsocks_libev_binary
-upload_to_github_release
+prepare
+tarball_bin
+release
