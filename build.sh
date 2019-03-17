@@ -25,6 +25,9 @@ SODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$SODIUM_VER/l
 SS_LIBEV_VER=3.2.5
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
+SOCKS5_SERVER_VER=1.7.3
+SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
+
 prepare() {
   rm -rf $BUILD_DIR && mkdir $BUILD_DIR
 }
@@ -134,6 +137,17 @@ build_shadowsocks_libev() {
   cd $CUR_DIR
 }
 
+build_socks5_server() {
+  [ -d $DIST_PREFIX/socks5-server ] && return
+
+  cd $BUILD_DIR
+  git clone $SOCKS5_SERVER_URL --branch $SOCKS5_SERVER_VER --recursive socks5-server-$SOCKS5_SERVER_VER
+  cd socks5-server-$SOCKS5_SERVER_VER
+  make -j`nproc` ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-"
+  make install INSTDIR="$DIST_PREFIX/socks5-server" PROJECT="socks5-server"
+  cd $CUR_DIR
+}
+
 prepare
 build_libev
 build_pcre
@@ -141,3 +155,4 @@ build_c_ares
 build_mbedtls
 build_libsodium
 build_shadowsocks_libev
+build_socks5_server

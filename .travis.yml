@@ -19,6 +19,7 @@ addons:
       - autoconf
       - libtool
       - curl
+      - git
 
 env:
   global:

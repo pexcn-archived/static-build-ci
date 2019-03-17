@@ -12,9 +12,15 @@ prepare() {
 tarball_bin() {
   for arch in $(ls $DIST_DIR)
   do
-    local tmp_dir=`mktemp -d /tmp/shadowsocks-libev.XXXXXX`
-    find $DIST_DIR/$arch/shadowsocks-libev -name "ss-*" -print0 | xargs -0 cp -t $tmp_dir
-    tar -C $tmp_dir -zcvf $RELEASE_DIR/shadowsocks-libev-linux-$arch-$VERSION.tar.gz . --remove-files
+    # ss-libev
+    local tmp_ss_dir=`mktemp -d /tmp/shadowsocks-libev.XXXXXX`
+    find $DIST_DIR/$arch/shadowsocks-libev -type f -name "ss-*" -print0 | xargs -0 cp -t $tmp_ss_dir
+    tar -C $tmp_ss_dir -zcvf $RELEASE_DIR/shadowsocks-libev-linux-$arch-$VERSION.tar.gz . --remove-files
+
+    # socks5-server
+    local tmp_s5_dir=`mktemp -d /tmp/socks5-server.XXXXXX`
+    find $DIST_DIR/$arch/socks5-server -type f -name "socks5-server*" -print0 | xargs -0 cp -t $tmp_s5_dir
+    tar -C $tmp_s5_dir -zcvf $RELEASE_DIR/socks5-server-linux-$arch-$VERSION.tar.gz . --remove-files
   done
 }
 
