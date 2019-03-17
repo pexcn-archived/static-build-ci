@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
-ARCH="$1"
 CUR_DIR=$(pwd)
+BUILD_DIR="$CUR_DIR/build"
+
+ARCH="$1"
 DIST_PREFIX="$CUR_DIR/dist/$ARCH"
 CROSS_HOST="$ARCH-linux-gnu"
 
@@ -24,13 +26,13 @@ SS_LIBEV_VER=3.2.5
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
 prepare() {
-  rm -rf $CUR_DIR/build && mkdir $CUR_DIR/build
+  rm -rf $BUILD_DIR && mkdir $BUILD_DIR
 }
 
 build_libev() {
   [ -d $DIST_PREFIX/libev ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $LIBEV_URL | tar zxf -
   cd libev-$LIBEV_VER
   ./configure \
@@ -45,7 +47,7 @@ build_libev() {
 build_pcre() {
   [ -d $DIST_PREFIX/pcre ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $PCRE_URL | tar zxf -
   cd pcre-$PCRE_VER
   ./configure \
@@ -63,7 +65,7 @@ build_pcre() {
 build_c_ares() {
   [ -d $DIST_PREFIX/c-ares ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $C_ARES_URL | tar zxf -
   cd c-ares-$C_ARES_VER
   ./configure \
@@ -80,7 +82,7 @@ build_c_ares() {
 build_mbedtls() {
   [ -d $DIST_PREFIX/mbedtls ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $MBEDTLS_URL | tar zxf -
   cd mbedtls-$MBEDTLS_VER
   make -j`nproc` programs \
@@ -96,7 +98,7 @@ build_mbedtls() {
 build_libsodium() {
   [ -d $DIST_PREFIX/libsodium ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $SODIUM_URL | tar zxf -
   cd libsodium-$SODIUM_VER
   ./configure \
@@ -112,7 +114,7 @@ build_libsodium() {
 build_shadowsocks_libev() {
   [ -d $DIST_PREFIX/shadowsocks-libev ] && return
 
-  cd $CUR_DIR/build
+  cd $BUILD_DIR
   curl -kLs $SS_LIBEV_URL | tar zxf -
   cd shadowsocks-libev-$SS_LIBEV_VER
   ./configure \
