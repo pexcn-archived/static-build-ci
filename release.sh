@@ -26,13 +26,13 @@ tarball_bin() {
 
 release() {
   local api_url="https://api.github.com/repos/tcnksm/ghr/releases/latest"
-  local tag=$(curl -s $api_url | grep "tag_name" | sed -E 's/.*"([^"]+)".*/\1/')
-  local download_url=$(curl -s $api_url | grep "browser_download_url" | grep "linux" | grep "amd64" | cut -d '"' -f 4)
+  local download_tag=$(curl -Ls $api_url | grep "tag_name" | sed -E 's/.*"([^"]+)".*/\1/')
+  local download_url=$(curl -Ls $api_url | grep "browser_download_url" | grep "linux" | grep "amd64" | cut -d '"' -f 4)
 
   local user=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 1)
   local repo=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 2)
 
-  curl -kLs $download_url | tar zxf - ghr_${tag}_linux_amd64/ghr --strip-components 1
+  curl -Ls $download_url | tar -zxvf - ghr_${download_tag}_linux_amd64/ghr --strip-components 1
 
   ./ghr -t $GITHUB_TOKEN \
     -u $user \
