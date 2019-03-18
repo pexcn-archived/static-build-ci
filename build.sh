@@ -144,7 +144,7 @@ build_socks5_server() {
   git clone $SOCKS5_SERVER_URL --branch $SOCKS5_SERVER_VER --recursive socks5-server-$SOCKS5_SERVER_VER
   cd socks5-server-$SOCKS5_SERVER_VER
   make -j`nproc` ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-"
-  make install INSTDIR="$DIST_PREFIX/socks5-server" PROJECT="socks5-server"
+  make install ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-" INSTDIR="$DIST_PREFIX/socks5-server" PROJECT="socks5-server"
   cd $CUR_DIR
 }
 
