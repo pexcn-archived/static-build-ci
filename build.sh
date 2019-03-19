@@ -108,8 +108,7 @@ build_libsodium() {
     --prefix="$DIST_PREFIX/libsodium" \
     --host="$CROSS_HOST" \
     --disable-shared \
-    --enable-static \
-    --enable-opt
+    --enable-static
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
