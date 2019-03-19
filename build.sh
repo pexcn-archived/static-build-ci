@@ -36,7 +36,7 @@ build_libev() {
   [ -d $DIST_PREFIX/libev ] && return
 
   cd $BUILD_DIR
-  curl -kLs $LIBEV_URL | tar zxf -
+  curl -Ls $LIBEV_URL | tar zxf -
   cd libev-$LIBEV_VER
   ./configure \
     --prefix="$DIST_PREFIX/libev" \
@@ -51,7 +51,7 @@ build_pcre() {
   [ -d $DIST_PREFIX/pcre ] && return
 
   cd $BUILD_DIR
-  curl -kLs $PCRE_URL | tar zxf -
+  curl -Ls $PCRE_URL | tar zxf -
   cd pcre-$PCRE_VER
   ./configure \
     --prefix="$DIST_PREFIX/pcre" \
@@ -69,7 +69,7 @@ build_c_ares() {
   [ -d $DIST_PREFIX/c-ares ] && return
 
   cd $BUILD_DIR
-  curl -kLs $C_ARES_URL | tar zxf -
+  curl -Ls $C_ARES_URL | tar zxf -
   cd c-ares-$C_ARES_VER
   ./configure \
     --prefix="$DIST_PREFIX/c-ares" \
@@ -86,7 +86,7 @@ build_mbedtls() {
   [ -d $DIST_PREFIX/mbedtls ] && return
 
   cd $BUILD_DIR
-  curl -kLs $MBEDTLS_URL | tar zxf -
+  curl -Ls $MBEDTLS_URL | tar zxf -
   cd mbedtls-$MBEDTLS_VER
   make -j`nproc` programs \
     CC="$CROSS_HOST-gcc" \
@@ -102,7 +102,7 @@ build_libsodium() {
   [ -d $DIST_PREFIX/libsodium ] && return
 
   cd $BUILD_DIR
-  curl -kLs $SODIUM_URL | tar zxf -
+  curl -Ls $SODIUM_URL | tar zxf -
   cd libsodium-$SODIUM_VER
   ./configure \
     --prefix="$DIST_PREFIX/libsodium" \
@@ -117,7 +117,7 @@ build_shadowsocks_libev() {
   [ -d $DIST_PREFIX/shadowsocks-libev ] && return
 
   cd $BUILD_DIR
-  curl -kLs $SS_LIBEV_URL | tar zxf -
+  curl -Ls $SS_LIBEV_URL | tar zxf -
   cd shadowsocks-libev-$SS_LIBEV_VER
   ./configure \
     --prefix="$DIST_PREFIX/shadowsocks-libev" \
