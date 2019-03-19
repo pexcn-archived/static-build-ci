@@ -92,7 +92,7 @@ build_mbedtls() {
     CC="$CROSS_HOST-gcc" \
     AR="$CROSS_HOST-ar" \
     LD="$CROSS_HOST-ld" \
-    CFLAGS="-O3" \
+    CFLAGS="-O3 -pipe" \
     LDFLAGS=-static
   make install DESTDIR="$DIST_PREFIX/mbedtls"
   cd $CUR_DIR
