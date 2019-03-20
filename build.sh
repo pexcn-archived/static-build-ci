@@ -42,7 +42,8 @@ build_libev() {
     --prefix="$DIST_PREFIX/libev" \
     --host="$CROSS_HOST" \
     --disable-shared \
-    --enable-static
+    --enable-static \
+    CFLAGS="-O3 -pipe"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
@@ -60,7 +61,8 @@ build_pcre() {
     --enable-static \
     --enable-jit \
     --enable-utf8 \
-    --enable-unicode-properties
+    --enable-unicode-properties \
+    CFLAGS="-O3 -pipe"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
@@ -76,8 +78,8 @@ build_c_ares() {
     --host="$CROSS_HOST" \
     --disable-shared \
     --enable-static \
-    --enable-optimize="-O3" \
-    --disable-debug
+    --disable-debug \
+    CFLAGS="-O3 -pipe"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
@@ -108,7 +110,8 @@ build_libsodium() {
     --prefix="$DIST_PREFIX/libsodium" \
     --host="$CROSS_HOST" \
     --disable-shared \
-    --enable-static
+    --enable-static \
+    CFLAGS="-O3 -pipe"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
@@ -131,6 +134,7 @@ build_shadowsocks_libev() {
     --with-mbedtls="$DIST_PREFIX/mbedtls" \
     --with-sodium="$DIST_PREFIX/libsodium" \
     LIBS="-lpthread -lm" \
+    CFLAGS="-O3 -pipe" \
     LDFLAGS="-Wl,-static -static -static-libgcc"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
