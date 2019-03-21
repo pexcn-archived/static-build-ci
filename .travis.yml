@@ -24,7 +24,21 @@ addons:
 env:
   global:
     - TZ: "Asia/Shanghai"
+    - VERSION: $(date +%Y%m%d)
+    - TRAVIS_TAG: $VERSION
 
 script:
   - bash build.sh x86_64
   - bash release.sh
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: release/*
+  file_glob: true
+  overwrite: true
+  skip_cleanup: true
+  name: $VERSION
+  #body: $TRAVIS_COMMIT_MESSAGE - automatically compile on $(date +'%F %T')
+  on:
+    branch: master
