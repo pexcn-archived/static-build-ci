@@ -62,7 +62,8 @@ build_pcre() {
     --enable-jit \
     --enable-utf8 \
     --enable-unicode-properties \
-    CFLAGS="-O3 -pipe"
+    CFLAGS="-O3 -pipe" \
+    CXXFLAGS="-O3 -pipe"
   make -j`nproc` && make install-strip
   cd $CUR_DIR
 }
