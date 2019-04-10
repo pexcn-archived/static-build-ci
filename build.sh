@@ -36,7 +36,7 @@ build_libev() {
   [ -d $DIST_PREFIX/libev ] && return
 
   cd $BUILD_DIR
-  curl -Ls $LIBEV_URL | tar zxf -
+  curl -sSL $LIBEV_URL | tar zxf -
   cd libev-$LIBEV_VER
   ./configure \
     --prefix="$DIST_PREFIX/libev" \
@@ -44,7 +44,7 @@ build_libev() {
     --disable-shared \
     --enable-static \
     CFLAGS="-O3 -pipe"
-  make -j`nproc` && make install-strip
+  make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
 
@@ -52,7 +52,7 @@ build_pcre() {
   [ -d $DIST_PREFIX/pcre ] && return
 
   cd $BUILD_DIR
-  curl -Ls $PCRE_URL | tar zxf -
+  curl -sSL $PCRE_URL | tar zxf -
   cd pcre-$PCRE_VER
   ./configure \
     --prefix="$DIST_PREFIX/pcre" \
@@ -64,7 +64,7 @@ build_pcre() {
     --enable-unicode-properties \
     CFLAGS="-O3 -pipe" \
     CXXFLAGS="-O3 -pipe"
-  make -j`nproc` && make install-strip
+  make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
 
@@ -72,7 +72,7 @@ build_c_ares() {
   [ -d $DIST_PREFIX/c-ares ] && return
 
   cd $BUILD_DIR
-  curl -Ls $C_ARES_URL | tar zxf -
+  curl -sSL $C_ARES_URL | tar zxf -
   cd c-ares-$C_ARES_VER
   ./configure \
     --prefix="$DIST_PREFIX/c-ares" \
@@ -81,7 +81,7 @@ build_c_ares() {
     --enable-static \
     --disable-debug \
     CFLAGS="-O3 -pipe"
-  make -j`nproc` && make install-strip
+  make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
 
@@ -89,9 +89,9 @@ build_mbedtls() {
   [ -d $DIST_PREFIX/mbedtls ] && return
 
   cd $BUILD_DIR
-  curl -Ls $MBEDTLS_URL | tar zxf -
+  curl -sSL $MBEDTLS_URL | tar zxf -
   cd mbedtls-$MBEDTLS_VER
-  make -j`nproc` programs \
+  make -j$(nproc) programs \
     CC="$CROSS_HOST-gcc" \
     AR="$CROSS_HOST-ar" \
     LD="$CROSS_HOST-ld" \
@@ -105,7 +105,7 @@ build_libsodium() {
   [ -d $DIST_PREFIX/libsodium ] && return
 
   cd $BUILD_DIR
-  curl -Ls $SODIUM_URL | tar zxf -
+  curl -sSL $SODIUM_URL | tar zxf -
   cd libsodium-$SODIUM_VER
   ./configure \
     --prefix="$DIST_PREFIX/libsodium" \
@@ -113,7 +113,7 @@ build_libsodium() {
     --disable-shared \
     --enable-static \
     CFLAGS="-O3 -pipe"
-  make -j`nproc` && make install-strip
+  make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
 
@@ -121,7 +121,7 @@ build_shadowsocks_libev() {
   [ -d $DIST_PREFIX/shadowsocks-libev ] && return
 
   cd $BUILD_DIR
-  curl -Ls $SS_LIBEV_URL | tar zxf -
+  curl -sSL $SS_LIBEV_URL | tar zxf -
   cd shadowsocks-libev-$SS_LIBEV_VER
   ./configure \
     --prefix="$DIST_PREFIX/shadowsocks-libev" \
@@ -137,7 +137,7 @@ build_shadowsocks_libev() {
     LIBS="-lpthread -lm" \
     CFLAGS="-O3 -pipe" \
     LDFLAGS="-Wl,-static -static -static-libgcc"
-  make -j`nproc` && make install-strip
+  make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
 
@@ -147,7 +147,7 @@ build_socks5_server() {
   cd $BUILD_DIR
   git clone $SOCKS5_SERVER_URL --branch $SOCKS5_SERVER_VER --recursive socks5-server-$SOCKS5_SERVER_VER
   cd socks5-server-$SOCKS5_SERVER_VER
-  make -j`nproc` ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-"
+  make -j$(nproc) ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-"
   make install ENABLE_STATIC=1 CROSS_PREFIX="$CROSS_HOST-" INSTDIR="$DIST_PREFIX/socks5-server" PROJECT="socks5-server"
   cd $CUR_DIR
 }
