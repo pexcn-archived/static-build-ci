@@ -25,7 +25,7 @@ SODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$SODIUM_VER/l
 SS_LIBEV_VER=3.2.5
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
-SOCKS5_SERVER_VER=1.7.4
+SOCKS5_SERVER_VER=1.7.5
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
 prepare() {
