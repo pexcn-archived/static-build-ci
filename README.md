@@ -9,7 +9,6 @@ Now supports the following programs:
 
 - [x] [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
-- [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 
 ## Usage
 
@@ -20,7 +19,6 @@ apt-get install curl --no-install-recommends -y
 API_URL="https://api.github.com/repos/pexcn/static-build-ci/releases/latest"
 SS_LIBEV_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "shadowsocks-libev" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
 SOCKS5_SERVER_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "socks5-server" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
-VLMCSD_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "vlmcsd" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
 
 # shadowsocks-libev
 curl -sSL $SS_LIBEV_URL | tar -zvxf - -C /usr/local/bin/ ss-server
@@ -28,10 +26,6 @@ curl -sSL $SS_LIBEV_URL | tar -zvxf - -C /usr/local/bin/ ss-server
 # socks5-server
 curl -sSL $SOCKS5_SERVER_URL | tar -zvxf - -C /usr/local/bin/ socks5-server
 curl -sSL $SOCKS5_SERVER_URL | tar -zvxf - -C /etc/ socks5-server.conf
-
-# vlmcsd
-curl -sSL $VLMCSD_URL | tar -zvxf - -C /usr/local/bin/ vlmcsd
-curl -sSL $VLMCSD_URL | tar -zvxf - -C /etc/ vlmcsd.ini
 ```
 
 ## License
