@@ -28,6 +28,9 @@ SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/
 SOCKS5_SERVER_VER=1.8.4
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
+VLMCSD_VER=svn1112
+VLMCSD_URL=https://github.com/Wind4/vlmcsd.git
+
 prepare() {
   rm -rf $BUILD_DIR && mkdir $BUILD_DIR
 }
@@ -152,6 +155,31 @@ build_socks5_server() {
   cd $CUR_DIR
 }
 
+build_vlmcsd() {
+  [ -d $DIST_PREFIX/vlmcsd ] && return
+
+  cd $BUILD_DIR
+  git clone $VLMCSD_URL --branch $VLMCSD_VER vlmcsd-$VLMCSD_VER
+  cd vlmcsd-$VLMCSD_VER
+  make -j$(nproc) \
+    CC="$CROSS_HOST-gcc" \
+    AR="$CROSS_HOST-ar" \
+    CFLAGS="-O3 -pipe -fno-common -fno-exceptions -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fmerge-all-constants -DFULL_INTERNAL_DATA" \
+    LDFLAGS="-pipe -Wl,-z,norelro -Wl,--build-id=none -Wl,--hash-style=gnu -lpthread -Wl,-static -static -static-libgcc" \
+    PLATFORMFLAGS="-m64 -mtune=generic" \
+    FEATURES=full \
+    VLMCSD_VERSION=$VLMCSD_VER \
+    VERBOSE=3
+  build_vlmcsd_make_install_manually
+  cd $CUR_DIR
+}
+
+build_vlmcsd_make_install_manually() {
+  mkdir -p $DIST_PREFIX/vlmcsd/bin $DIST_PREFIX/vlmcsd/etc
+  cp bin/vlmcsd bin/vlmcs $DIST_PREFIX/vlmcsd/bin/
+  cp etc/vlmcsd.ini $DIST_PREFIX/vlmcsd/etc/
+}
+
 prepare
 build_libev
 build_pcre
@@ -160,3 +188,4 @@ build_mbedtls
 build_libsodium
 build_shadowsocks_libev
 build_socks5_server
+build_vlmcsd
