@@ -139,7 +139,7 @@ build_shadowsocks_libev() {
     --with-sodium="$DIST_PREFIX/libsodium" \
     LIBS="-lpthread -lm" \
     CFLAGS="-O3 -pipe" \
-    LDFLAGS="-Wl,-static -static -static-libgcc"
+    LDFLAGS="-Wl,--build-id=none -Wl,-static -static -static-libgcc"
   make -j$(nproc) && make install-strip
   cd $CUR_DIR
 }
