@@ -19,7 +19,7 @@ release() {
 
     # socks5-server
     local tmp_s5_dir=$(mktemp -d /tmp/socks5-server.XXXXXX)
-    find $DIST_DIR/$arch/socks5-server -type f -name "socks5-server*" -print0 | xargs -0 cp -t $tmp_s5_dir
+    find $DIST_DIR/$arch/socks5-server -type f -name "socks5-server" -print0 | xargs -0 cp -t $tmp_s5_dir
     tar -C $tmp_s5_dir -zcvf $RELEASE_DIR/socks5-server-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_s5_dir) --remove-files
   done
 }
