@@ -11,7 +11,7 @@ Now supports the following programs:
 - [x] [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] add-ons
-  - [ ] mtg
+  - [x] mtg
   - [ ] vlmcsd
 
 ## Usage
@@ -26,6 +26,13 @@ curl -sSL $SS_LIBEV_URL | tar -zvxf - -C /usr/local/bin/ ss-server
 # socks5-server
 SOCKS5_SERVER_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "socks5-server" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
 curl -sSL $SOCKS5_SERVER_URL | tar -zvxf - -C /usr/local/bin/ socks5-server
+```
+
+### Add-ons
+
+```bash
+# mtg
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/mtg.sh | bash
 ```
 
 It can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
