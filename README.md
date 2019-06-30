@@ -12,7 +12,7 @@ Now supports the following programs:
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] add-ons
   - [x] mtg
-  - [ ] vlmcsd
+  - [x] vlmcsd
 
 ## Usage
 
@@ -30,9 +30,13 @@ curl -sSL $SOCKS5_SERVER_URL | tar -zvxf - -C /usr/local/bin/ socks5-server
 
 ### Add-ons
 
+Note: Install linux amd64(x86_64) version only.
+
 ```bash
 # mtg
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/mtg.sh | bash
+# vlmcsd
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/vlmcsd.sh | bash
 ```
 
 It can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
