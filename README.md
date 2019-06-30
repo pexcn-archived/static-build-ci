@@ -11,8 +11,8 @@ Now supports the following programs:
 - [x] [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] add-ons
-  - [x] mtg
-  - [x] vlmcsd
+  - [x] [mtg](https://github.com/9seconds/mtg)
+  - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 
 ## Usage
 
