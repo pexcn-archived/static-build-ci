@@ -20,7 +20,7 @@ MBEDTLS_VER=2.16.1
 MBEDTLS_URL=https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 
 SODIUM_VER=1.0.18
-SODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$SODIUM_VER/libsodium-$SODIUM_VER.tar.gz
+SODIUM_URL=https://download.libsodium.org/libsodium/releases/libsodium-$SODIUM_VER.tar.gz
 
 SS_LIBEV_VER=3.3.0
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
