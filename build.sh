@@ -7,7 +7,7 @@ ARCH="$1"
 DIST_PREFIX="$CUR_DIR/dist/$ARCH"
 CROSS_HOST="$ARCH-linux-gnu"
 
-LIBEV_VER=4.25
+LIBEV_VER=4.27
 LIBEV_URL=http://dist.schmorp.de/libev/Attic/libev-$LIBEV_VER.tar.gz
 
 PCRE_VER=8.43
@@ -16,10 +16,10 @@ PCRE_URL=https://ftp.pcre.org/pub/pcre/pcre-$PCRE_VER.tar.gz
 C_ARES_VER=1.15.0
 C_ARES_URL=https://c-ares.haxx.se/download/c-ares-$C_ARES_VER.tar.gz
 
-MBEDTLS_VER=2.16.0
+MBEDTLS_VER=2.16.1
 MBEDTLS_URL=https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 
-SODIUM_VER=1.0.17
+SODIUM_VER=1.0.18
 SODIUM_URL=https://github.com/jedisct1/libsodium/releases/download/$SODIUM_VER/libsodium-$SODIUM_VER.tar.gz
 
 SS_LIBEV_VER=3.3.0
