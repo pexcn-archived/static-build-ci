@@ -32,7 +32,7 @@ deploy() {
   local user=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 1)
   local repo=$(echo $TRAVIS_REPO_SLUG | cut -d "/" -f 2)
 
-  curl -sSL $download_url | tar -zxf - ghr_${download_tag}_linux_amd64/ghr --strip-components 1
+  curl -sSL $download_url | tar -zxf - "ghr_${download_tag}_linux_amd64/ghr" --strip-components 1
 
   ./ghr -t $GITHUB_TOKEN \
     -u $user \
