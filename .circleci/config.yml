@@ -2,12 +2,10 @@ version: 2
 jobs:
   build:
     working_directory: ~/static-build-ci
-    machine: true
+    docker:
+      - image: pexcn/docker-images:stretch-openwrt
     steps:
       - checkout
-      - run:
-          name: Prepare
-          command: ./.circleci/prepare.sh
       - run:
           name: Run build
           command: ./build.sh x86_64
