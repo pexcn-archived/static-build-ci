@@ -1,6 +1,6 @@
 # Static Build CI
 
-[![Build Status](https://travis-ci.org/pexcn/static-build-ci.svg?branch=master)](https://travis-ci.org/pexcn/static-build-ci)
+[![CircleCI](https://circleci.com/gh/pexcn/static-build-ci.svg?style=svg)](https://circleci.com/gh/pexcn/static-build-ci)
 [![GitHub Releases](https://img.shields.io/github/downloads/pexcn/static-build-ci/total.svg)](https://github.com/pexcn/static-build-ci/releases)
 
 Static Build CI is a bash shell script, it can be automatically statically compiled some programs via continuous integration and automatically deployed to [GitHub release page](https://github.com/pexcn/static-build-ci/releases).  

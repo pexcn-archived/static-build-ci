@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/static-build-ci
+    docker:
+      - image: pexcn/docker-images:stretch-openwrt
+    steps:
+      - checkout
+      - run:
+          name: Run build
+          command: ./build.sh x86_64
+      - run:
+          name: Deploy
+          command: ./deploy.sh
+      - store_artifacts:
+          path: release
+          destination: release
