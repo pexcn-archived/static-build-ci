@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 TARGET_PATH="/usr/local/bin/vlmcsd"
-
 API_URL="https://api.github.com/repos/Wind4/vlmcsd/releases/latest"
 DOWNLOAD_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "binaries.tar.gz" | cut -d '"' -f 4)
 

@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 language: bash
 
 branches:
@@ -23,8 +23,8 @@ addons:
 
 env:
   global:
-    - TZ: "Asia/Shanghai"
+    - TZ: "ROC"
 
 script:
-  - bash build.sh x86_64
-  - bash release.sh
+  - ./build.sh x86_64
+  - ./deploy.sh

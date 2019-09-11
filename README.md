@@ -4,7 +4,6 @@
 [![GitHub Releases](https://img.shields.io/github/downloads/pexcn/static-build-ci/total.svg)](https://github.com/pexcn/static-build-ci/releases)
 
 Static Build CI is a bash shell script, it can be automatically statically compiled some programs via continuous integration and automatically deployed to [GitHub release page](https://github.com/pexcn/static-build-ci/releases).  
-Static Build CI is a part of [Odyssey](https://github.com/pexcn/Odyssey).  
 
 Now supports the following programs:
 
