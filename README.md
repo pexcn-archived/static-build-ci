@@ -11,6 +11,7 @@ Now supports the following programs:
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] add-ons
   - [x] [mtg](https://github.com/9seconds/mtg)
+  - [x] [trojan](https://github.com/trojan-gfw/trojan)
   - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 
 ## Usage
@@ -34,6 +35,8 @@ Note: Install linux amd64(x86_64) version only.
 ```bash
 # mtg
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/mtg.sh | bash
+# trojan
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/trojan.sh | bash
 # vlmcsd
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/vlmcsd.sh | bash
 ```
