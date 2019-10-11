@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 TARGET_PATH="/usr/local/bin/vlmcsd"
 API_URL="https://api.github.com/repos/Wind4/vlmcsd/releases/latest"

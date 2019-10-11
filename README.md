@@ -20,17 +20,17 @@ Install linux amd64(x86_64) version only, it can be combined with [systemd-servi
 
 ```bash
 # ss-server
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/ss-server.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/ss-server.sh | bash
 # socks5-server
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/socks5-server.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/socks5-server.sh | bash
 # mtg
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/mtg.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/mtg.sh | bash
 # trojan
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/trojan.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/trojan.sh | bash
 # udp2raw
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udp2raw.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udp2raw.sh | bash
 # vlmcsd
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | sh
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | bash
 ```
 
 ## License

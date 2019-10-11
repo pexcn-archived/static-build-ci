@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 TARGET_PATH="/usr/local/bin/udp2raw"
 API_URL="https://api.github.com/repos/wangyu-/udp2raw-tunnel/releases/latest"

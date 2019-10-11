@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 TARGET_PATH="/usr/local/bin/ss-server"
 API_URL="https://api.github.com/repos/pexcn/static-build-ci/releases/latest"
