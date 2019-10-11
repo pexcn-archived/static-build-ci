@@ -9,39 +9,26 @@ Now supports the following programs:
 
 - [x] [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
-- [x] add-ons
-  - [x] [mtg](https://github.com/9seconds/mtg)
-  - [x] [trojan](https://github.com/trojan-gfw/trojan)
-  - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
+- [x] [mtg](https://github.com/9seconds/mtg)
+- [x] [trojan](https://github.com/trojan-gfw/trojan)
+- [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 
 ## Usage
 
+Install linux amd64(x86_64) version only, it can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
+
 ```bash
-API_URL="https://api.github.com/repos/pexcn/static-build-ci/releases/latest"
-
-# shadowsocks-libev
-SS_LIBEV_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "shadowsocks-libev" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
-curl -sSL $SS_LIBEV_URL | tar -zvxf - -C /usr/local/bin/ ss-server
-
+# ss-server
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/ss-server.sh | sh
 # socks5-server
-SOCKS5_SERVER_URL=$(curl -sSL $API_URL | grep "browser_download_url" | grep "socks5-server" | grep "linux" | grep "x86_64" | cut -d '"' -f 4)
-curl -sSL $SOCKS5_SERVER_URL | tar -zvxf - -C /usr/local/bin/ socks5-server
-```
-
-### Add-ons
-
-Note: Install linux amd64(x86_64) version only.
-
-```bash
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/socks5-server.sh | sh
 # mtg
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/mtg.sh | bash
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/mtg.sh | sh
 # trojan
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/trojan.sh | bash
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/trojan.sh | sh
 # vlmcsd
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/add-ons/vlmcsd.sh | bash
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | sh
 ```
-
-It can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
 
 ## License
 

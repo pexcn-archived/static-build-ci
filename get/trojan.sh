@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 TARGET_PATH="/usr/local/bin/trojan"
 API_URL="https://api.github.com/repos/trojan-gfw/trojan/releases/latest"

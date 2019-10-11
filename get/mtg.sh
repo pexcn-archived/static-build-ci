@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 TARGET_PATH="/usr/local/bin/mtg"
 API_URL="https://api.github.com/repos/9seconds/mtg/releases/latest"
