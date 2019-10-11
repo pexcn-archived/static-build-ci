@@ -11,6 +11,7 @@ Now supports the following programs:
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] [mtg](https://github.com/9seconds/mtg)
 - [x] [trojan](https://github.com/trojan-gfw/trojan)
+- [x] [udp2raw](https://github.com/wangyu-/udp2raw-tunnel)
 - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 
 ## Usage
@@ -26,6 +27,8 @@ curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/socks5-server.
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/mtg.sh | sh
 # trojan
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/trojan.sh | sh
+# udp2raw
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udp2raw.sh | sh
 # vlmcsd
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | sh
 ```
