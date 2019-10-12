@@ -17,5 +17,6 @@ get_extract_name() {
 curl -sSL $DOWNLOAD_URL | tar -zxf - -C /usr/local/bin/ $(get_extract_name)
 mv /usr/local/bin/$(get_extract_name) $TARGET_PATH
 
+strip $TARGET_PATH
 chmod +x $TARGET_PATH
 chown root:staff $TARGET_PATH
