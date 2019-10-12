@@ -16,7 +16,7 @@ Now supports the following programs:
 
 ## Usage
 
-Install linux amd64(x86_64) version only, it can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
+Install linux amd64 (x86_64) version only, it can be combined with [systemd-services](https://github.com/pexcn/systemd-services).
 
 ```bash
 # ss-server
