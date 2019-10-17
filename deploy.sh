@@ -22,6 +22,11 @@ release() {
     find $DIST_DIR/$arch/socks5-server -type f -name "socks5-server" -print0 | xargs -0 cp -t $tmp_s5_dir
     tar -C $tmp_s5_dir -zcvf $RELEASE_DIR/socks5-server-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_s5_dir) --remove-files
 
+    # udp2raw
+    local tmp_udp2raw_dir=$(mktemp -d /tmp/udp2raw.XXXXXX)
+    find $DIST_DIR/$arch/udp2raw -type f -name "udp2raw*" -print0 | xargs -0 cp -t $tmp_udp2raw_dir
+    tar -C $tmp_udp2raw_dir -zcvf $RELEASE_DIR/udp2raw-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_udp2raw_dir) --remove-files
+
     # udpspeeder
     local tmp_udpspeeder_dir=$(mktemp -d /tmp/udpspeeder.XXXXXX)
     find $DIST_DIR/$arch/udpspeeder -type f -name "udpspeeder" -print0 | xargs -0 cp -t $tmp_udpspeeder_dir

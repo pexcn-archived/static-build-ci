@@ -28,6 +28,10 @@ SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/
 SOCKS5_SERVER_VER=1.9.0
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
+UDP2RAW_VER=20190716
+UDP2RAW_URL=https://github.com/wangyu-/udp2raw-tunnel.git
+UDP2RAW_HASH=5cc304a26181ee17bc583b79a2e80449ea63e1b7
+
 UDPSPEEDER_VER=20190408
 UDPSPEEDER_URL=https://github.com/wangyu-/UDPspeeder.git
 UDPSPEEDER_HASH=ecc90928d33741dbe726b547f2d8322540c26ea0
@@ -155,6 +159,27 @@ build_socks5_server() {
   cd $CUR_DIR
 }
 
+build_udp2raw() {
+  [ -d $DIST_PREFIX/udp2raw ] && return
+
+  cd $BUILD_DIR
+  git clone $UDP2RAW_URL udp2raw-$UDP2RAW_VER
+  cd udp2raw-$UDP2RAW_VER
+  git checkout $UDP2RAW_HASH
+
+  # build
+  make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+  make amd64_hw_aes cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+
+  # install
+  $CROSS_HOST-strip udp2raw_amd64 udp2raw_amd64_hw_aes
+  install -d -m 0755 $DIST_PREFIX/udp2raw/bin
+  install -m 0755 udp2raw_amd64 $DIST_PREFIX/udp2raw/bin/udp2raw
+  install -m 0755 udp2raw_amd64_hw_aes $DIST_PREFIX/udp2raw/bin/udp2raw_hw_aes
+
+  cd $CUR_DIR
+}
+
 build_udpspeeder() {
   [ -d $DIST_PREFIX/udpspeeder ] && return
 
@@ -164,11 +189,7 @@ build_udpspeeder() {
   git checkout $UDPSPEEDER_HASH
 
   # build
-  if [ "$ARCH" = "x86_64" ]; then
-    make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
-  else
-    make cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
-  fi
+  make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
 
   # install
   $CROSS_HOST-strip speederv2_amd64
@@ -186,4 +207,5 @@ build_mbedtls
 build_libsodium
 build_shadowsocks_libev
 build_socks5_server
+build_udp2raw
 build_udpspeeder
