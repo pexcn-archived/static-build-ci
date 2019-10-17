@@ -20,6 +20,8 @@ addons:
       - libtool
       - curl
       - git
+      - cmake
+      - libssl-dev
 
 env:
   global:
