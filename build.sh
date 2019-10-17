@@ -164,7 +164,11 @@ build_udpspeeder() {
   git checkout $UDPSPEEDER_HASH
 
   # build
-  make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+  if [ "$ARCH" = "x86_64" ]; then
+    make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+  else
+    make cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+  fi
 
   # install
   $CROSS_HOST-strip speederv2_amd64
