@@ -28,6 +28,10 @@ SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/
 SOCKS5_SERVER_VER=1.9.0
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
+UDPSPEEDER_VER=20190408
+UDPSPEEDER_URL=https://github.com/wangyu-/UDPspeeder.git
+UDPSPEEDER_HASH=ecc90928d33741dbe726b547f2d8322540c26ea0
+
 prepare() {
   rm -rf $BUILD_DIR && mkdir $BUILD_DIR
 }
@@ -151,6 +155,25 @@ build_socks5_server() {
   cd $CUR_DIR
 }
 
+build_udpspeeder() {
+  [ -d $DIST_PREFIX/udpspeeder ] && return
+
+  cd $BUILD_DIR
+  git clone $UDPSPEEDER_URL udpspeeder-$UDPSPEEDER_VER
+  cd udpspeeder-$UDPSPEEDER_VER
+  git checkout $UDPSPEEDER_HASH
+
+  # build
+  make amd64 cc_local="$CROSS_HOST-g++" OPT="-pipe -Wl,--build-id=none"
+
+  # install
+  $CROSS_HOST-strip speederv2_amd64
+  install -d -m 0755 $DIST_PREFIX/udpspeeder/bin
+  install -m 0755 speederv2_amd64 $DIST_PREFIX/udpspeeder/bin/udpspeeder
+
+  cd $CUR_DIR
+}
+
 prepare
 build_libev
 build_pcre
@@ -159,3 +182,4 @@ build_mbedtls
 build_libsodium
 build_shadowsocks_libev
 build_socks5_server
+build_udpspeeder
