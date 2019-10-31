@@ -22,7 +22,7 @@ MBEDTLS_URL=https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 SODIUM_VER=1.0.18
 SODIUM_URL=https://download.libsodium.org/libsodium/releases/libsodium-$SODIUM_VER.tar.gz
 
-SS_LIBEV_VER=3.3.2
+SS_LIBEV_VER=3.3.3
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
 SOCKS5_SERVER_VER=1.9.0
