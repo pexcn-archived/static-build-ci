@@ -25,6 +25,10 @@ SODIUM_URL=https://download.libsodium.org/libsodium/releases/libsodium-$SODIUM_V
 SS_LIBEV_VER=3.3.3
 SS_LIBEV_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SS_LIBEV_VER/shadowsocks-libev-$SS_LIBEV_VER.tar.gz
 
+SIMPLE_OBFS_VER=0.0.5
+SIMPLE_OBFS_URL=https://github.com/shadowsocks/simple-obfs.git
+SIMPLE_OBFS_HASH=486bebd9208539058e57e23a12f23103016e09b4
+
 SOCKS5_SERVER_VER=1.9.0
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
@@ -155,6 +159,29 @@ build_shadowsocks_libev() {
   cd $CUR_DIR
 }
 
+build_simple_obfs() {
+  [ -d $DIST_PREFIX/simple-obfs ] && return
+
+  cd $BUILD_DIR
+  git clone $SIMPLE_OBFS_URL simple-obfs-$SIMPLE_OBFS_VER
+  cd simple-obfs-$SIMPLE_OBFS_VER
+  git checkout $SIMPLE_OBFS_HASH
+  git submodule update --init --recursive
+  ./autogen.sh
+  ./configure \
+    --prefix="$DIST_PREFIX/simple-obfs" \
+    --host="$CROSS_HOST" \
+    --disable-documentation \
+    --disable-assert \
+    --enable-static \
+    --with-ev="$DIST_PREFIX/libev" \
+    LIBS="-lpthread -lm" \
+    CFLAGS="-O3 -pipe" \
+    LDFLAGS="-Wl,--build-id=none -Wl,-static -static -static-libgcc"
+  make -j$(nproc) && make install-strip
+  cd $CUR_DIR
+}
+
 build_socks5_server() {
   [ -d $DIST_PREFIX/socks5-server ] && return
 
@@ -259,6 +286,7 @@ build_c_ares
 build_mbedtls
 build_libsodium
 build_shadowsocks_libev
+build_simple_obfs
 build_socks5_server
 build_udp2raw
 build_udpspeeder

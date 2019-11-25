@@ -17,6 +17,11 @@ release() {
     find $DIST_DIR/$arch/shadowsocks-libev -type f -name "ss-*" -print0 | xargs -0 cp -t $tmp_ss_dir
     tar -C $tmp_ss_dir -zcvf $RELEASE_DIR/shadowsocks-libev-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_ss_dir) --remove-files
 
+    # simple-obfs
+    local tmp_obfs_dir=$(mktemp -d /tmp/simple-obfs.XXXXXX)
+    find $DIST_DIR/$arch/simple-obfs -type f -name "obfs-*" -print0 | xargs -0 cp -t $tmp_obfs_dir
+    tar -C $tmp_obfs_dir -zcvf $RELEASE_DIR/simple-obfs-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_obfs_dir) --remove-files
+
     # socks5-server
     local tmp_s5_dir=$(mktemp -d /tmp/socks5-server.XXXXXX)
     find $DIST_DIR/$arch/socks5-server -type f -name "socks5-server" -print0 | xargs -0 cp -t $tmp_s5_dir

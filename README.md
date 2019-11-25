@@ -8,6 +8,7 @@ Static Build CI is a bash shell script, it can be automatically statically compi
 Now supports the following programs:
 
 - [x] [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
+- [x] [simple-obfs](https://github.com/shadowsocks/simple-obfs)
 - [x] [hev-socks5-server](https://github.com/heiher/hev-socks5-server)
 - [x] [mtg](https://github.com/9seconds/mtg)
 - [x] [trojan](https://github.com/trojan-gfw/trojan)
@@ -23,6 +24,8 @@ Install linux amd64 (x86_64) version only, it can be combined with [systemd-serv
 ```bash
 # ss-server
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/ss-server.sh | bash
+# obfs-server
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/obfs-server.sh | bash
 # socks5-server
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/socks5-server.sh | bash
 # mtg
