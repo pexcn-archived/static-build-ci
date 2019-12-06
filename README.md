@@ -16,6 +16,7 @@ Now supports the following programs:
 - [x] [udpspeeder](https://github.com/wangyu-/UDPspeeder)
 - [x] [xkcptun](https://github.com/liudf0716/xkcptun)
 - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
+- [x] [chisel](https://github.com/jpillora/chisel)
 
 ## Usage
 
@@ -40,6 +41,8 @@ curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udpspeeder.sh 
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/xkcptun.sh | bash
 # vlmcsd
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | bash
+# chisel
+curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/chisel.sh | bash
 ```
 
 ## License
