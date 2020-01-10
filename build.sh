@@ -81,6 +81,7 @@ build_pcre() {
     --enable-jit \
     --enable-utf8 \
     --enable-unicode-properties \
+    --with-match-limit-recursion=16000 \
     CFLAGS="-O3 -pipe" \
     CXXFLAGS="-O3 -pipe"
   make -j$(nproc) && make install-strip
