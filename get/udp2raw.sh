@@ -8,9 +8,9 @@ get_extract_name() {
   local aes_support=$(cat /proc/cpuinfo | grep "aes")
 
   if [ -z "$aes_support" ]; then
-    echo "udp2raw"
+    echo "udp2raw_amd64"
   else
-    echo "udp2raw_hw_aes"
+    echo "udp2raw_amd64_hw_aes"
   fi
 }
 
