@@ -7,16 +7,16 @@ ARCH="$1"
 DIST_PREFIX="$CUR_DIR/dist/$ARCH"
 CROSS_HOST="$ARCH-linux-gnu"
 
-LIBEV_VER=4.27
+LIBEV_VER=4.33
 LIBEV_URL=http://dist.schmorp.de/libev/Attic/libev-$LIBEV_VER.tar.gz
 
-PCRE_VER=8.43
+PCRE_VER=8.44
 PCRE_URL=https://ftp.pcre.org/pub/pcre/pcre-$PCRE_VER.tar.gz
 
-C_ARES_VER=1.15.0
+C_ARES_VER=1.16.0
 C_ARES_URL=https://c-ares.haxx.se/download/c-ares-$C_ARES_VER.tar.gz
 
-MBEDTLS_VER=2.16.3
+MBEDTLS_VER=2.16.5
 MBEDTLS_URL=https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 
 SODIUM_VER=1.0.18
@@ -29,7 +29,7 @@ SIMPLE_OBFS_VER=0.0.5
 SIMPLE_OBFS_URL=https://github.com/shadowsocks/simple-obfs.git
 SIMPLE_OBFS_HASH=486bebd9208539058e57e23a12f23103016e09b4
 
-SOCKS5_SERVER_VER=1.9.0
+SOCKS5_SERVER_VER=1.9.4
 SOCKS5_SERVER_URL=https://github.com/heiher/hev-socks5-server.git
 
 UDP2RAW_VER=20190716

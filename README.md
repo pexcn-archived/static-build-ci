@@ -45,7 +45,7 @@ curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/chisel.sh | ba
 ## License
 
 ```
-Copyright (C) 2019, pexcn <i@pexcn.me>
+Copyright (C) 2019 - 2020, pexcn <i@pexcn.me>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

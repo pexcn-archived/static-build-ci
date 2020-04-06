@@ -23,7 +23,7 @@ addons:
 
 env:
   global:
-    - TZ: "ROC"
+    - TZ: "Asia/Taipei"
 
 script:
   - ./build.sh x86_64
