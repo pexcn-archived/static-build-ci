@@ -14,7 +14,6 @@ Now supports the following programs:
 - [x] [trojan](https://github.com/trojan-gfw/trojan)
 - [x] [udp2raw](https://github.com/wangyu-/udp2raw-tunnel)
 - [x] [udpspeeder](https://github.com/wangyu-/UDPspeeder)
-- [x] [xkcptun](https://github.com/liudf0716/xkcptun)
 - [x] [vlmcsd](https://github.com/Wind4/vlmcsd)
 - [x] [chisel](https://github.com/jpillora/chisel)
 
@@ -37,8 +36,6 @@ curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/trojan.sh | ba
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udp2raw.sh | bash
 # udpspeeder
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/udpspeeder.sh | bash
-# xkcptun
-curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/xkcptun.sh | bash
 # vlmcsd
 curl -sSL https://github.com/pexcn/static-build-ci/raw/master/get/vlmcsd.sh | bash
 # chisel

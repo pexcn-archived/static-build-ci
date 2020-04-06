@@ -40,13 +40,6 @@ UDPSPEEDER_VER=20190408
 UDPSPEEDER_URL=https://github.com/wangyu-/UDPspeeder.git
 UDPSPEEDER_HASH=ecc90928d33741dbe726b547f2d8322540c26ea0
 
-LIBEVENT_VER=2.1.11-stable
-LIBEVENT_URL=https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VER/libevent-$LIBEVENT_VER.tar.gz
-
-XKCPTUN_VER=20191008
-XKCPTUN_URL=https://github.com/liudf0716/xkcptun.git
-XKCPTUN_HASH=702180d7cf0f4d632d32910d426be598b70067b6
-
 prepare() {
   rm -rf $BUILD_DIR && mkdir $BUILD_DIR
 }
@@ -234,52 +227,6 @@ build_udpspeeder() {
   cd $CUR_DIR
 }
 
-build_libevent() {
-  [ -d $DIST_PREFIX/libevent ] && return
-
-  cd $BUILD_DIR
-  curl -sSL $LIBEVENT_URL | tar zxf -
-  cd libevent-$LIBEVENT_VER
-  ./configure \
-    --prefix="$DIST_PREFIX/libevent" \
-    --host="$CROSS_HOST" \
-    --enable-shared=no \
-    --enable-static=yes \
-    --disable-debug-mode \
-    --disable-libevent-regress \
-    --disable-samples \
-    CFLAGS="-O3 -pipe"
-  make -j$(nproc) && make install-strip
-  cd $CUR_DIR
-}
-
-build_xkcptun() {
-  [ -d $DIST_PREFIX/xkcptun ] && return
-
-  cd $BUILD_DIR
-  git clone $XKCPTUN_URL xkcptun-$XKCPTUN_VER
-  cd xkcptun-$XKCPTUN_VER
-  git checkout $XKCPTUN_HASH
-
-  mkdir build && cd build
-  cmake \
-    -DCMAKE_INSTALL_PREFIX="$DIST_PREFIX/xkcptun" \
-    -DCMAKE_C_COMPILER="$(which $CROSS_HOST-gcc)" \
-    -DCMAKE_C_FLAGS="-I$DIST_PREFIX/libevent/include" \
-    -DCMAKE_EXE_LINKER_FLAGS="-L$DIST_PREFIX/libevent/lib -Wl,--build-id=none" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_EXE_LINKER_FLAGS_RELEASE="-s" \
-    ..
-  make install
-
-  # misc
-  mv $DIST_PREFIX/xkcptun/bin/xkcp_server $DIST_PREFIX/xkcptun/bin/xkcp-server
-  mv $DIST_PREFIX/xkcptun/bin/xkcp_client $DIST_PREFIX/xkcptun/bin/xkcp-client
-  install -m 0755 xkcp_spy $DIST_PREFIX/xkcptun/bin/xkcp-spy
-
-  cd $CUR_DIR
-}
-
 prepare
 build_libev
 build_pcre
@@ -291,5 +238,3 @@ build_simple_obfs
 build_socks5_server
 build_udp2raw
 build_udpspeeder
-build_libevent
-build_xkcptun

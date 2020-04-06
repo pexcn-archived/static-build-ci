@@ -36,11 +36,6 @@ release() {
     local tmp_udpspeeder_dir=$(mktemp -d /tmp/udpspeeder.XXXXXX)
     find $DIST_DIR/$arch/udpspeeder -type f -name "udpspeeder" -print0 | xargs -0 cp -t $tmp_udpspeeder_dir
     tar -C $tmp_udpspeeder_dir -zcvf $RELEASE_DIR/udpspeeder-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_udpspeeder_dir) --remove-files
-
-    # xkcptun
-    local tmp_xkcptun_dir=$(mktemp -d /tmp/xkcptun.XXXXXX)
-    find $DIST_DIR/$arch/xkcptun -type f -name "xkcp*" -print0 | xargs -0 cp -t $tmp_xkcptun_dir
-    tar -C $tmp_xkcptun_dir -zcvf $RELEASE_DIR/xkcptun-linux-$arch-$VERSION.tar.gz $(ls -1 $tmp_xkcptun_dir) --remove-files
   done
 }
 
